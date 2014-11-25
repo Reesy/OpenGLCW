@@ -42,7 +42,7 @@ public class CGCW01 extends JFrame{
 		final GLUT glut = new GLUT(); //For invoking glut functions
 		
 		private double scale = 1;
-		
+		private int tx, ty, rx, ry;
 		@Override
 		public void display(GLAutoDrawable drawable) {
 			GL2 gl = drawable.getGL().getGL2();
@@ -53,7 +53,12 @@ public class CGCW01 extends JFrame{
 			gl.glLoadIdentity();
 			
 			/* Fill in transformation code here*/
-	
+			gl.glTranslated(tx, ty, 0); 	//tx and ty are modified by input in keypressed.
+			
+			gl.glRotated(rx, 1, 0, 0);
+			
+			gl.glRotated(ry, 0, 1, 0);
+			
 			gl.glScaled(scale, scale, scale);
 			glut.glutSolidTeapot(1.0);
 		}
@@ -111,7 +116,33 @@ public class CGCW01 extends JFrame{
 			case KeyEvent.VK_M:
 				scale *= 1.1;
 				break;
-				
+			case KeyEvent.VK_N:
+				scale /= 1.1;
+				break;
+			case KeyEvent.VK_RIGHT:
+				tx += 1;
+				break;
+			case KeyEvent.VK_LEFT:
+				tx -= 1;
+				break;
+			case KeyEvent.VK_UP:
+				ty += 1;
+				break;
+			case KeyEvent.VK_DOWN:
+				ty -= 1;
+				break;
+			case KeyEvent.VK_PAGE_UP:
+				rx += 1;
+				break;
+			case KeyEvent.VK_PAGE_DOWN:
+				rx -= 1;
+				break;
+			case KeyEvent.VK_HOME:
+				ry += 1;
+				break;
+			case KeyEvent.VK_END:
+				ry -= 1;
+				break;
 			// Define some parameters at a suitable location in this program
 			// and calculate the parameters here to respond to some key events
 			// scale down the object when key 'n' is pressed
