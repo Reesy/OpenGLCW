@@ -17,7 +17,15 @@ import javax.swing.JFrame;
 
 import com.jogamp.opengl.util.FPSAnimator;
 
+import static javax.media.opengl.GL.GL_LINEAR;
+import static javax.media.opengl.GL.GL_RGB;
+import static javax.media.opengl.GL.GL_TEXTURE_2D;
+import static javax.media.opengl.GL.GL_TEXTURE_MAG_FILTER;
+import static javax.media.opengl.GL.GL_TEXTURE_MIN_FILTER;
+import static javax.media.opengl.GL.GL_UNSIGNED_BYTE;
 import static javax.media.opengl.GL2.*;
+import static javax.media.opengl.GL2GL3.GL_BGR;
+import static javax.media.opengl.GL2GL3.GL_QUADS;
 
 public class CGCW03 extends JFrame{
 
@@ -48,7 +56,7 @@ public class CGCW03 extends JFrame{
 
         ByteBuffer texImg;
         private int texWidth, texHeight;
-      
+        private int texName[] = new int[1];
 		@Override
 		public void display(GLAutoDrawable drawable) {
 			GL2 gl = drawable.getGL().getGL2();
@@ -64,41 +72,44 @@ public class CGCW03 extends JFrame{
 			//Add texture coordinates here
 			gl.glBegin(GL_QUADS);
 	            gl.glNormal3f(1.0f, 0.0f, 0.0f);
-	            gl.glVertex3f(1.0f, 1.0f, 1.0f);
-	            gl.glVertex3f(1.0f, -1.0f, 1.0f);
-	            gl.glVertex3f(1.0f, -1.0f, -1.0f);
-	            gl.glVertex3f(1.0f, 1.0f, -1.0f);
+	            gl.glColor3d(0, 1, 0);
+	            gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex3f(1.0f, 1.0f, 1.0f);
+	            gl.glTexCoord2f(0.0f, 0.0f); gl.glVertex3f(1.0f, -1.0f, 1.0f);
+	            gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex3f(1.0f, -1.0f, -1.0f);
+	            gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex3f(1.0f, 1.0f, -1.0f);
 	
 	            gl.glNormal3f(-1.0f, 0.0f, 0.0f);
-	            gl.glVertex3f(-1.0f, 1.0f, 1.0f);
-	            gl.glVertex3f(-1.0f, 1.0f, -1.0f);
-	            gl.glVertex3f(-1.0f, -1.0f, -1.0f);
-	            gl.glVertex3f(-1.0f, -1.0f, 1.0f);
+	            gl.glTexCoord2f(1.0f, 0.0f);  gl.glVertex3f(-1.0f, 1.0f, 1.0f);
+	            gl.glTexCoord2f(0.0f, 0.0f);  gl.glVertex3f(-1.0f, 1.0f, -1.0f);
+	            gl.glTexCoord2f(0.0f, 1.0f);  gl.glVertex3f(-1.0f, -1.0f, -1.0f);
+	            gl.glTexCoord2f(1.0f, 1.0f);  gl.glVertex3f(-1.0f, -1.0f, 1.0f);
 	
 	            gl.glNormal3f(0.0f, 1.0f, 0.0f);
-	            gl.glVertex3f(1.0f, 1.0f, 1.0f);
-	            gl.glVertex3f(1.0f, 1.0f, -1.0f);
-	            gl.glVertex3f(-1.0f, 1.0f, -1.0f);
-	            gl.glVertex3f(-1.0f, 1.0f, 1.0f);
+	            gl.glTexCoord2f(1.0f, 0.0f);   gl.glVertex3f(1.0f, 1.0f, 1.0f);
+	            gl.glTexCoord2f(0.0f, 0.0f);   gl.glVertex3f(1.0f, 1.0f, -1.0f);
+	            gl.glTexCoord2f(0.0f, 1.0f);   gl.glVertex3f(-1.0f, 1.0f, -1.0f);
+	            gl.glTexCoord2f(1.0f, 1.0f);   gl.glVertex3f(-1.0f, 1.0f, 1.0f);
 	
 	            gl.glNormal3f(0.0f, -1.0f, 0.0f);
-	            gl.glVertex3f(1.0f, -1.0f, 1.0f);
-	            gl.glVertex3f(-1.0f, -1.0f, 1.0f);
-	            gl.glVertex3f(-1.0f, -1.0f, -1.0f);
-	            gl.glVertex3f(1.0f, -1.0f, -1.0f);
+	            gl.glTexCoord2f(1.0f, 0.0f);   gl.glVertex3f(1.0f, -1.0f, 1.0f);
+	            gl.glTexCoord2f(0.0f, 0.0f);   gl.glVertex3f(-1.0f, -1.0f, 1.0f);
+	            gl.glTexCoord2f(0.0f, 1.0f);   gl.glVertex3f(-1.0f, -1.0f, -1.0f);
+	            gl.glTexCoord2f(1.0f, 1.0f);   gl.glVertex3f(1.0f, -1.0f, -1.0f);
 	
 	            gl.glNormal3f(0.0f, 0.0f, 1.0f);
-	            gl.glVertex3f(1.0f, 1.0f, 1.0f);
-	            gl.glVertex3f(-1.0f, 1.0f, 1.0f);
-	            gl.glVertex3f(-1.0f, -1.0f, 1.0f);
-	            gl.glVertex3f(1.0f, -1.0f, 1.0f);
+	            gl.glTexCoord2f(1.0f, 0.0f);  gl.glVertex3f(1.0f, 1.0f, 1.0f);
+	            gl.glTexCoord2f(0.0f, 0.0f);  gl.glVertex3f(-1.0f, 1.0f, 1.0f);
+	            gl.glTexCoord2f(0.0f, 1.0f);  gl.glVertex3f(-1.0f, -1.0f, 1.0f);
+	            gl.glTexCoord2f(1.0f, 1.0f);  gl.glTexCoord2f(1.0f, 1.0f);  gl.glVertex3f(1.0f, -1.0f, 1.0f);
 	
 	            gl.glNormal3f(0.0f, 0.0f, -1.0f);
-	            gl.glVertex3f(1.0f, 1.0f, -1.0f);
-	            gl.glVertex3f(1.0f, -1.0f, -1.0f);
-	            gl.glVertex3f(-1.0f, -1.0f, -1.0f);
-	            gl.glVertex3f(-1.0f, 1.0f, -1.0f);
+	            gl.glTexCoord2f(1.0f, 0.0f);   gl.glVertex3f(1.0f, 1.0f, -1.0f);
+	            gl.glTexCoord2f(0.0f, 0.0f);   gl.glVertex3f(1.0f, -1.0f, -1.0f);
+	            gl.glTexCoord2f(0.0f, 1.0f);   gl.glVertex3f(-1.0f, -1.0f, -1.0f);
+	            gl.glTexCoord2f(1.0f, 1.0f);   gl.glVertex3f(-1.0f, 1.0f, -1.0f);
 	        gl.glEnd();
+	        
+	
 		}
 
 		@Override
@@ -132,6 +143,18 @@ public class CGCW03 extends JFrame{
 	        // Step 1: Create a texture object and specify a texture for that object
 	        // Step 2: Indicate how the texture is to be applied to each pixel
 	        // Step 3: Enable texture mapping
+	        
+	        
+	        
+	        gl.glGenTextures(1, texName, 0);
+	        gl.glBindTexture(GL_TEXTURE_2D, texName[0]);
+	        gl.glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texWidth, texHeight,   0, GL_BGR, GL_UNSIGNED_BYTE, texImg);  // specify texture image
+
+	
+	        gl.glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);  //must be specified
+	        gl.glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);  //must be specified
+
+	        gl.glEnable(GL_TEXTURE_2D); 
 
 		}
 

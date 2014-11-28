@@ -13,6 +13,7 @@ import com.jogamp.opengl.util.gl2.GLUT;
 import static javax.media.opengl.GL.GL_FRONT;
 import static javax.media.opengl.GL.GL_TRIANGLE_FAN;
 import static javax.media.opengl.GL2.*;
+import static javax.media.opengl.GL2GL3.GL_QUADS;
 import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_AMBIENT;
 import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_DIFFUSE;
 import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_SHININESS;
@@ -44,6 +45,32 @@ public class TestBed extends JFrame{
 		TestBed frame = new TestBed();
 
 	}
+	
+	
+	private void customObject(GL2 gl){
+		
+		spokes(gl);
+		
+		
+		
+		
+		
+	}
+	
+	private void spokes(GL2 gl){
+
+			cylinder_thin(gl);
+			gl.glRotated(45, 1, 0, 0);
+			cylinder_thin(gl);
+			gl.glRotated(45, 1, 0, 0);
+			cylinder_thin(gl);
+			gl.glRotated(45, 1, 0, 0);
+			cylinder_thin(gl);
+		
+		
+	
+		
+	}
 	private void body(GL2 gl){
 		   float diffuse[] = {0.0f, 0.0f, 0.5f, 1.0f};
 		      float ambient[] = {0.0f, 0.0f, 0.5f, 1.0f};
@@ -59,19 +86,120 @@ public class TestBed extends JFrame{
 	      gl.glMaterialfv(GL_FRONT, GL_SHININESS, shine, 0);
 		
 		
-		//torso
-		gl.glBegin(GL_QUADS);
-			gl.glVertex3d(0, 0, 0);
-			gl.glVertex3d(0, -0.5, 0);
-			gl.glVertex3d(0, -0.5, -0.5);
-			gl.glVertex3d(0, 0, -0.5);
+	      	//torso
+	      	
+			gl.glBegin(GL_QUADS);
+		        gl.glNormal3f(0.5f, 0.0f, 0.0f);
+		        gl.glVertex3f(0.5f, 1.0f, 1.0f);
+		        gl.glVertex3f(0.5f, -1.0f, 1.0f);
+		        gl.glVertex3f(0.5f, -1.0f, -1.0f);
+		        gl.glVertex3f(0.5f, 1.0f, -1.0f);
 		
-		gl.glEnd();
+		        gl.glNormal3f(-0.5f, 0.0f, 0.0f);
+		        gl.glVertex3f(-0.5f, 1.0f, 1.0f);
+		        gl.glVertex3f(-0.5f, 1.0f, -1.0f);
+		        gl.glVertex3f(-0.5f, -1.0f, -1.0f);
+		        gl.glVertex3f(-0.5f, -1.0f, 1.0f);
+		
+		        gl.glNormal3f(0.0f, 1.0f, 0.0f);
+		        gl.glVertex3f(1.0f, 1.0f, 1.0f);
+		        gl.glVertex3f(1.0f, 1.0f, -1.0f);
+		        gl.glVertex3f(-1.0f, 1.0f, -1.0f);
+		        gl.glVertex3f(-1.0f, 1.0f, 1.0f);
+		
+		        gl.glNormal3f(0.0f, -1.0f, 0.0f);
+		        gl.glVertex3f(1.0f, -1.0f, 1.0f);
+		        gl.glVertex3f(-1.0f, -1.0f, 1.0f);
+		        gl.glVertex3f(-1.0f, -1.0f, -1.0f);
+		        gl.glVertex3f(1.0f, -1.0f, -1.0f);
+		
+		        gl.glNormal3f(0.0f, 0.0f, 1.0f);
+		        gl.glVertex3f(1.0f, 1.0f, 1.0f);
+		        gl.glVertex3f(-1.0f, 1.0f, 1.0f);
+		        gl.glVertex3f(-1.0f, -1.0f, 1.0f);
+		        gl.glVertex3f(1.0f, -1.0f, 1.0f);
+		
+		        gl.glNormal3f(0.0f, 0.0f, -1.0f);
+		        gl.glVertex3f(1.0f, 1.0f, -1.0f);
+		        gl.glVertex3f(1.0f, -1.0f, -1.0f);
+		        gl.glVertex3f(-1.0f, -1.0f, -1.0f);
+		        gl.glVertex3f(-1.0f, 1.0f, -1.0f);
+		    gl.glEnd();
+			
+		
 		
 		
 		
 		
 	}
+	private void cylinder_thin(GL2 gl) {
+		//Draw a cylinder with radius 1, and the axis length 2
+
+
+		   float diffuse[] = {0.0f, 0.0f, 0.5f, 1.0f};
+		      float ambient[] = {0.0f, 0.0f, 0.5f, 1.0f};
+		      float specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
+		      float shine[] = {127.0f};
+		
+		
+		
+	      // Set material
+	      gl.glMaterialfv(GL_FRONT, GL_AMBIENT, ambient, 0);
+	      gl.glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse, 0);
+	      gl.glMaterialfv(GL_FRONT, GL_SPECULAR, specular, 0);
+	      gl.glMaterialfv(GL_FRONT, GL_SHININESS, shine, 0);
+
+		  double deg_to_rad = Math.PI/180.0 ;
+	      double x,y;
+	      
+	      //north face
+	      gl.glBegin (GL_TRIANGLE_FAN);
+	      gl.glNormal3d(0, 0, 1);
+	      gl.glVertex3d (0.0, 0.0, 1.0);
+	      for (double thet = -180.0; thet <= 180.0; thet += 1.0) {
+	          x = Math.sin (deg_to_rad  * thet) * Math.cos (deg_to_rad * 80.0);
+	          y = Math.cos (deg_to_rad * thet) * Math.cos (deg_to_rad * 80.0);
+	    
+	          gl.glNormal3d(x, y, 1);
+	          gl.glVertex3d (x, y, 1);
+	      }
+	      gl.glEnd();
+	      
+	      
+	      //south face
+	      gl.glBegin (GL_TRIANGLE_FAN);
+	      gl.glNormal3d(0, 0, -1);
+	      gl.glVertex3d (0.0, 0.0, -1.0);
+	      for (double thet = -180.0; thet <= 180.0; thet += 1.0) {
+	          x = Math.sin (deg_to_rad  * thet) * Math.cos (deg_to_rad * 80.0);
+	          y = Math.cos (deg_to_rad * thet) * Math.cos (deg_to_rad * 80.0);
+	    
+	          gl.glNormal3d(x, y, -1);
+	          gl.glVertex3d (x, y, -1);
+	      }
+	      gl.glEnd();
+
+	      
+	      //center
+	      gl.glBegin(GL_QUAD_STRIP);
+	      
+	     
+		      for (double thet = -180.0; thet <= 180.0; thet += 1.0) {
+		    	  x = Math.sin (deg_to_rad  * thet) * Math.cos (deg_to_rad * 80.0);
+		          y = Math.cos (deg_to_rad * thet) * Math.cos (deg_to_rad * 80.0);
+		    
+		          gl.glNormal3d(x, y, 0);
+		          gl.glVertex3d (x, y, 1);
+		          gl.glNormal3d(x, y, 0);
+		          gl.glVertex3d (x, y, -1);		          
+		      }
+		  gl.glEnd();
+	      
+	      
+
+	
+	}
+      
 	private void sphere(GL2 gl) {
 		
 	      // Sphere material
@@ -160,7 +288,7 @@ public class TestBed extends JFrame{
 			gl.glScaled(scale, scale, scale);
 	//		glut.glutSolidTeapot(1.0);
 			
-			body(gl);
+			customObject(gl);
 		}
 		
 		@Override
