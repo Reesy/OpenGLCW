@@ -3,3 +3,8 @@ Graphics_cw/.classpath
 Graphics_cw/.project
 Graphics_cw/.settings/org.eclipse.jdt.core.prefs
 *.class
+labs/.classpath
+labs/.gitignore
+labs/.project
+labs/.settings/org.eclipse.jdt.core.prefs
+labs/src/CG04.java
